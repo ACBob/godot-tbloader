@@ -5,8 +5,7 @@
 
 #include <builder.h>
 
-void TBLoader::_bind_methods()
-{
+void TBLoader::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_map", "map_resource"), &TBLoader::set_map);
 	ClassDB::bind_method(D_METHOD("get_map"), &TBLoader::get_map);
 	ClassDB::bind_method(D_METHOD("set_inverse_scale", "map_inverse_scale"), &TBLoader::set_inverse_scale);
@@ -56,126 +55,101 @@ void TBLoader::_bind_methods()
 	ADD_PROPERTY(PropertyInfo(Variant::STRING, "entity_path", PROPERTY_HINT_DIR, "Entity Path"), "set_entity_path", "get_entity_path");
 }
 
-TBLoader::TBLoader()
-{
+TBLoader::TBLoader() {
 }
 
-TBLoader::~TBLoader()
-{
+TBLoader::~TBLoader() {
 }
 
-void TBLoader::set_map(const String& map)
-{
+void TBLoader::set_map(const String &map) {
 	m_map_path = map;
 }
 
-String TBLoader::get_map() const
-{
+String TBLoader::get_map() const {
 	return m_map_path;
 }
 
-void TBLoader::set_inverse_scale(int scale)
-{
+void TBLoader::set_inverse_scale(int scale) {
 	m_inverse_scale = scale;
 }
 
-int TBLoader::get_inverse_scale()
-{
+int TBLoader::get_inverse_scale() {
 	return m_inverse_scale;
 }
 
-void TBLoader::set_lighting_unwrap_uv2(bool enabled)
-{
+void TBLoader::set_lighting_unwrap_uv2(bool enabled) {
 	m_lighting_unwrap_uv2 = enabled;
 }
 
-bool TBLoader::get_lighting_unwrap_uv2()
-{
+bool TBLoader::get_lighting_unwrap_uv2() {
 	return m_lighting_unwrap_uv2;
 }
 
-void TBLoader::set_collision(bool enabled)
-{
+void TBLoader::set_collision(bool enabled) {
 	m_collision = enabled;
 }
 
-bool TBLoader::get_collision()
-{
+bool TBLoader::get_collision() {
 	return m_collision;
 }
 
-void TBLoader::set_skip_hidden_layers(bool enabled)
-{
+void TBLoader::set_skip_hidden_layers(bool enabled) {
 	m_skip_hidden_layers = enabled;
 }
 
-bool TBLoader::get_skip_hidden_layers()
-{
+bool TBLoader::get_skip_hidden_layers() {
 	return m_skip_hidden_layers;
 }
 
-void TBLoader::set_filter_nearest(bool enabled)
-{
+void TBLoader::set_filter_nearest(bool enabled) {
 	m_filter_nearest = enabled;
 }
 
-bool TBLoader::get_filter_nearest()
-{
+bool TBLoader::get_filter_nearest() {
 	return m_filter_nearest;
 }
 
-void TBLoader::set_clip_texture_name(const String& clip_texture_name)
-{
+void TBLoader::set_clip_texture_name(const String &clip_texture_name) {
 	m_clip_texture_name = clip_texture_name;
 }
 
-String TBLoader::get_clip_texture_name()
-{
+String TBLoader::get_clip_texture_name() {
 	return m_clip_texture_name;
 }
 
-void TBLoader::set_skip_texture_name(const String& skip_texture_name)
-{
+void TBLoader::set_skip_texture_name(const String &skip_texture_name) {
 	m_skip_texture_name = skip_texture_name;
 }
 
-String TBLoader::get_skip_texture_name()
-{
+String TBLoader::get_skip_texture_name() {
 	return m_skip_texture_name;
 }
 
-uint32_t TBLoader::get_visual_layer_mask()
-{
+uint32_t TBLoader::get_visual_layer_mask() {
 	return m_visual_layer_mask;
 }
 
-void TBLoader::set_visual_layer_mask(uint32_t visual_layer_mask)
-{
+void TBLoader::set_visual_layer_mask(uint32_t visual_layer_mask) {
 	m_visual_layer_mask = visual_layer_mask;
 }
 
-void TBLoader::set_entity_common(bool enabled)
-{
+void TBLoader::set_entity_common(bool enabled) {
 	m_entity_common = enabled;
 }
 
-bool TBLoader::get_entity_common()
-{
+bool TBLoader::get_entity_common() {
 	return m_entity_common;
 }
 
-void TBLoader::set_entity_path(const String& path)
-{
+void TBLoader::set_entity_path(const String &path) {
 	m_entity_path = path;
 }
 
-String TBLoader::get_entity_path()
-{
+String TBLoader::get_entity_path() {
 	return m_entity_path;
 }
 
-void TBLoader::clear()
-{
+void TBLoader::clear() {
 	while (get_child_count() > 0) {
 		auto child = get_child(0);
 		remove_child(child);
@@ -183,8 +157,7 @@ void TBLoader::clear()
 	}
 }
 
-void TBLoader::build_meshes()
-{
+void TBLoader::build_meshes() {
 	clear();
 
 	Builder builder(this);

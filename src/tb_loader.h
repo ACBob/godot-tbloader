@@ -2,16 +2,15 @@
 
 #include <godot/gdnative_interface.h>
 
-#include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/defs.hpp>
+#include <godot_cpp/godot.hpp>
 
-#include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/control.hpp>
+#include <godot_cpp/classes/node3d.hpp>
 
 using namespace godot;
 
-class TBLoader : public Node3D
-{
+class TBLoader : public Node3D {
 	GDCLASS(TBLoader, Node3D);
 
 public:
@@ -38,7 +37,7 @@ public:
 	~TBLoader();
 
 	// Map
-	void set_map(const String& map);
+	void set_map(const String &map);
 	String get_map() const;
 	void set_inverse_scale(int scale);
 	int get_inverse_scale();
@@ -54,9 +53,9 @@ public:
 	bool get_skip_hidden_layers();
 	void set_filter_nearest(bool enabled);
 	bool get_filter_nearest();
-	void set_clip_texture_name(const String& clip_texture);
+	void set_clip_texture_name(const String &clip_texture);
 	String get_clip_texture_name();
-	void set_skip_texture_name(const String& skip_texture);
+	void set_skip_texture_name(const String &skip_texture);
 	String get_skip_texture_name();
 	uint32_t get_visual_layer_mask();
 	void set_visual_layer_mask(uint32_t visual_layer_mask);
@@ -64,7 +63,7 @@ public:
 	// Entities
 	void set_entity_common(bool enabled);
 	bool get_entity_common();
-	void set_entity_path(const String& path);
+	void set_entity_path(const String &path);
 	String get_entity_path();
 
 	void clear();

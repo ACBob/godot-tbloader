@@ -1,8 +1,8 @@
 #ifndef LIBMAP_BRUSH_H
 #define LIBMAP_BRUSH_H
 
-#include <stdlib.h>
 #include "vector.h"
+#include <stdlib.h>
 
 struct LMFace;
 
