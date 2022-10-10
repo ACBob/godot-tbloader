@@ -207,10 +207,20 @@ void Builder::build_entity_custom(int idx, LMEntity &ent, LMEntityGeometry &geo,
 						instance->set(prop.key, Vector3i((int)v.x, (int)v.y, (int)v.z));
 						break;
 					}
+					case Variant::VECTOR4: {
+						vec4 v = vec4_parse(prop.value);
+						instance->set(prop.key, Vector4(v.x, v.y, v.z, v.w));
+						break;
+					}
+					case Variant::VECTOR4I: {
+						vec4 v = vec4_parse(prop.value);
+						instance->set(prop.key, Vector4i((int)v.x, (int)v.y, (int)v.z, (int)v.w));
+						break;
+					}
 
 					case Variant::COLOR: {
-						vec3 v = vec3_parse(prop.value);
-						instance->set(prop.key, Color(v.x / 255.0f, v.y / 255.0f, v.z / 255.0f));
+						vec4 v = vec4_parse(prop.value, { 0, 0, 0, 255 });
+						instance->set(prop.key, Color(v.x / 255.0f, v.y / 255.0f, v.z / 255.0f, v.w / 255.0f));
 						break;
 					}
 				}

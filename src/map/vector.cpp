@@ -1,6 +1,7 @@
 #include "vector.h"
 
 #include <math.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "libmap_math.h"
@@ -93,30 +94,22 @@ vec3 vec3_div_double(const vec3 &lhs, const double rhs) {
 	return result;
 };
 
-vec3 vec3_parse(const char *str) {
-	vec3 ret = { 0 };
+// BAOB: TODO: Locale?
 
-	ret.x = atof(str);
-	const char *token = strchr(str, ' ');
-	if (token != nullptr) {
-		ret.y = atof(token + 1);
-		token = strchr(token + 1, ' ');
-		if (token != nullptr) {
-			ret.z = atof(token + 1);
-		}
-	}
-
+vec3 vec3_parse(const char *str, vec3 defaults) {
+	vec3 ret = defaults;
+	sscanf(str, "%lf %lf %lf", &ret.x, &ret.y, &ret.z);
 	return ret;
 }
 
-vec2 vec2_parse(const char *str) {
-	vec2 ret = { 0 };
+vec2 vec2_parse(const char *str, vec2 defaults) {
+	vec2 ret = defaults;
+	sscanf(str, "%lf %lf", &ret.x, &ret.y);
+	return ret;
+}
 
-	ret.x = atof(str);
-	const char *token = strchr(str, ' ');
-	if (token != nullptr) {
-		ret.y = atof(token + 1);
-	}
-
+vec4 vec4_parse(const char *str, vec4 defaults) {
+	vec4 ret = defaults;
+	sscanf(str, "%lf %lf %lf %lf", &ret.x, &ret.y, &ret.z, &ret.w);
 	return ret;
 }
