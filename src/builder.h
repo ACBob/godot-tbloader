@@ -8,6 +8,7 @@
 #include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/classes/material.hpp>
 #include <godot_cpp/classes/mesh_instance3d.hpp>
+#include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/node3d.hpp>
 #include <godot_cpp/classes/static_body3d.hpp>
 #include <godot_cpp/classes/texture2d.hpp>
@@ -57,7 +58,8 @@ public:
 	void build_entity_light(int idx, LMEntity &ent);
 	void build_entity_area(int idx, LMEntity &ent);
 
-	void set_entity_node_common(Node3D *node, LMEntity &ent);
+	void set_entity_node_common(Node *node, LMEntity &ent);
+	void set_entity_node3d_common(Node3D *node, LMEntity &ent);
 	void set_entity_brush_common(int idx, Node3D *node, LMEntity &ent);
 
 protected:

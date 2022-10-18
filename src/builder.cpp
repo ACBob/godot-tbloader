@@ -157,8 +157,8 @@ void Builder::build_entity_custom(int idx, LMEntity &ent, LMEntityGeometry &geo,
 			m_loader->add_child(instance);
 			instance->set_owner(m_loader->get_owner());
 
+			set_entity_node_common(instance, ent);
 			if (instance->is_class("Node3D")) {
-				set_entity_node_common((Node3D *)instance, ent);
 				if (ent.brush_count > 0) {
 					set_entity_brush_common(idx, (Node3D *)instance, ent);
 				}
@@ -283,13 +283,18 @@ void Builder::build_entity_area(int idx, LMEntity &ent) {
 	}
 }
 
-void Builder::set_entity_node_common(Node3D *node, LMEntity &ent) {
+void Builder::set_entity_node_common(Node *node, LMEntity &ent) {
 	// Target name
 	auto targetname = ent.get_property("targetname", nullptr);
 	if (targetname != nullptr) {
 		node->set_name(targetname);
 	}
 
+	if (node->is_class("Node3D"))
+		set_entity_node3d_common((Node3D *)node, ent);
+}
+
+void Builder::set_entity_node3d_common(Node3D *node, LMEntity &ent) {
 	// Position
 	if (ent.has_property("origin")) {
 		Vector3 origin = lm_transform(ent.get_property_vec3("origin"));
