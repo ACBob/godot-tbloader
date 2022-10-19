@@ -67,5 +67,5 @@ public:
 	String get_entity_path();
 
 	void clear();
-	void build_meshes();
+	void build_map();
 };

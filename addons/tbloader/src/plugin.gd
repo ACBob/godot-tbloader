@@ -29,18 +29,18 @@ func _edit(object):
 	editing_loader = weakref(object)
 
 func create_map_control() -> Control:
-	var button_build_meshes = Button.new()
-	button_build_meshes.flat = true
-	button_build_meshes.text = "Build Meshes"
-	button_build_meshes.connect("pressed", Callable(self, "build_meshes"))
+	var button_build_map = Button.new()
+	button_build_map.flat = true
+	button_build_map.text = "Build Map"
+	button_build_map.connect("pressed", Callable(self, "build_map"))
 
 	var ret = HBoxContainer.new()
-	ret.add_child(button_build_meshes)
+	ret.add_child(button_build_map)
 	return ret
 
-func build_meshes():
+func build_map():
 	var loader = editing_loader.get_ref()
-	loader.build_meshes()
+	loader.build_map()
 
 func set_icons(on):
 	var editor_interface = get_editor_interface()
