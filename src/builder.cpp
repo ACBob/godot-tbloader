@@ -108,6 +108,15 @@ void Builder::build_entity(int idx, LMEntity &ent, const String &classname) {
 			}
 		}
 		build_worldspawn(idx, ent);
+
+		// BAOB: Many games will put additional settings for the map in the world spawn entity.
+		// Half-Life and Quake both put the skybox into worldspawn, for example.
+		// To replicate this, users may expand the TBLoader node with scripts, which will be allowed to take
+		// the settings like any other entity.
+		if (classname == "worldspawn") {
+			set_node_properties_from_entity((Node *)m_loader, ent);
+		}
+
 		return;
 	}
 
@@ -164,67 +173,8 @@ void Builder::build_entity_custom(int idx, LMEntity &ent, LMEntityGeometry &geo,
 				}
 			}
 
-			for (int j = 0; j < ent.property_count; j++) {
-				auto &prop = ent.properties[j];
+			set_node_properties_from_entity(instance, ent);
 
-				auto var = instance->get(prop.key);
-				switch (var.get_type()) {
-					case Variant::BOOL:
-						instance->set(prop.key, atoi(prop.value) == 1);
-						break;
-					case Variant::INT:
-						instance->set(prop.key, (int64_t)atoll(prop.value));
-						break;
-					case Variant::FLOAT:
-						instance->set(prop.key, atof(prop.value));
-						break; //TODO: Locale?
-					case Variant::STRING:
-						instance->set(prop.key, prop.value);
-						break;
-
-					case Variant::STRING_NAME:
-						instance->set(prop.key, StringName(prop.value));
-					case Variant::NODE_PATH:
-						instance->set(prop.key, NodePath(prop.value)); //TODO: More TrenchBroom focused node path conversion?
-
-					case Variant::VECTOR2: {
-						vec2 v = vec2_parse(prop.value);
-						instance->set(prop.key, Vector2(v.x, v.y));
-						break;
-					}
-					case Variant::VECTOR2I: {
-						vec2 v = vec2_parse(prop.value);
-						instance->set(prop.key, Vector2i((int)v.x, (int)v.y));
-						break;
-					}
-					case Variant::VECTOR3: {
-						vec3 v = vec3_parse(prop.value);
-						instance->set(prop.key, Vector3(v.x, v.y, v.z));
-						break;
-					}
-					case Variant::VECTOR3I: {
-						vec3 v = vec3_parse(prop.value);
-						instance->set(prop.key, Vector3i((int)v.x, (int)v.y, (int)v.z));
-						break;
-					}
-					case Variant::VECTOR4: {
-						vec4 v = vec4_parse(prop.value);
-						instance->set(prop.key, Vector4(v.x, v.y, v.z, v.w));
-						break;
-					}
-					case Variant::VECTOR4I: {
-						vec4 v = vec4_parse(prop.value);
-						instance->set(prop.key, Vector4i((int)v.x, (int)v.y, (int)v.z, (int)v.w));
-						break;
-					}
-
-					case Variant::COLOR: {
-						vec4 v = vec4_parse(prop.value, { 0, 0, 0, 255 });
-						instance->set(prop.key, Color(v.x / 255.0f, v.y / 255.0f, v.z / 255.0f, v.w / 255.0f));
-						break;
-					}
-				}
-			}
 			return;
 		}
 	}
@@ -374,6 +324,70 @@ void Builder::set_entity_brush_common(int idx, Node3D *node, LMEntity &ent) {
 	}
 
 	build_entity_mesh(idx, ent, node, need_collider, need_collider_shape);
+}
+
+void Builder::set_node_properties_from_entity(Node *node, LMEntity &ent) {
+	for (int j = 0; j < ent.property_count; j++) {
+		auto &prop = ent.properties[j];
+
+		auto var = node->get(prop.key);
+		switch (var.get_type()) {
+			case Variant::BOOL:
+				node->set(prop.key, atoi(prop.value) == 1);
+				break;
+			case Variant::INT:
+				node->set(prop.key, (int64_t)atoll(prop.value));
+				break;
+			case Variant::FLOAT:
+				node->set(prop.key, atof(prop.value));
+				break; //TODO: Locale?
+			case Variant::STRING:
+				node->set(prop.key, prop.value);
+				break;
+
+			case Variant::STRING_NAME:
+				node->set(prop.key, StringName(prop.value));
+			case Variant::NODE_PATH:
+				node->set(prop.key, NodePath(prop.value)); //TODO: More TrenchBroom focused node path conversion?
+
+			case Variant::VECTOR2: {
+				vec2 v = vec2_parse(prop.value);
+				node->set(prop.key, Vector2(v.x, v.y));
+				break;
+			}
+			case Variant::VECTOR2I: {
+				vec2 v = vec2_parse(prop.value);
+				node->set(prop.key, Vector2i((int)v.x, (int)v.y));
+				break;
+			}
+			case Variant::VECTOR3: {
+				vec3 v = vec3_parse(prop.value);
+				node->set(prop.key, Vector3(v.x, v.y, v.z));
+				break;
+			}
+			case Variant::VECTOR3I: {
+				vec3 v = vec3_parse(prop.value);
+				node->set(prop.key, Vector3i((int)v.x, (int)v.y, (int)v.z));
+				break;
+			}
+			case Variant::VECTOR4: {
+				vec4 v = vec4_parse(prop.value);
+				node->set(prop.key, Vector4(v.x, v.y, v.z, v.w));
+				break;
+			}
+			case Variant::VECTOR4I: {
+				vec4 v = vec4_parse(prop.value);
+				node->set(prop.key, Vector4i((int)v.x, (int)v.y, (int)v.z, (int)v.w));
+				break;
+			}
+
+			case Variant::COLOR: {
+				vec4 v = vec4_parse(prop.value, { 0, 0, 0, 255 });
+				node->set(prop.key, Color(v.x / 255.0f, v.y / 255.0f, v.z / 255.0f, v.w / 255.0f));
+				break;
+			}
+		}
+	}
 }
 
 Vector3 Builder::lm_transform(const vec3 &v) {

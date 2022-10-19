@@ -62,6 +62,8 @@ public:
 	void set_entity_node3d_common(Node3D *node, LMEntity &ent);
 	void set_entity_brush_common(int idx, Node3D *node, LMEntity &ent);
 
+	void set_node_properties_from_entity(Node *node, LMEntity &ent);
+
 protected:
 	Vector3 lm_transform(const vec3 &v);
 
