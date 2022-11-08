@@ -18,7 +18,7 @@ sources = Glob("src/*.cpp")
 sources += Glob("src/builders/*.cpp")
 sources += Glob("src/map/*.cpp")
 
-if env["platform"] == "windows":
+if env["platform"] == "windows" and env["target"] == "template_debug":
 	env.Append(LINKFLAGS=["/DEBUG"])
 
 if env["platform"] == "osx":
@@ -31,7 +31,7 @@ if env["platform"] == "osx":
 else:
 	library = env.SharedLibrary(
 		"addons/tbloader/bin/tbloader.{}.{}{}".format(
-			env["platform"], env["arch_suffix"], env["SHLIBSUFFIX"]
+			env["platform"], env["arch"], env["SHLIBSUFFIX"]
 		),
 		source=sources,
 	)
