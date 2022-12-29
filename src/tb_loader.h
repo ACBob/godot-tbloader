@@ -1,6 +1,6 @@
 #pragma once
 
-#include <godot/gdnative_interface.h>
+#include <gdextension_interface.h>
 
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
@@ -66,7 +66,7 @@ public:
 	bool get_entity_common();
 	void set_entity_path(const String &path);
 	String get_entity_path();
-	void set_texture_path(const String& path);
+	void set_texture_path(const String &path);
 	String get_texture_path();
 
 	void clear();
