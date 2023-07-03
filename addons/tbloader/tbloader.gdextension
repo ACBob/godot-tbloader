@@ -1,5 +1,6 @@
 [configuration]
 entry_symbol = "tbloader_init"
+compatibility_minimum = 4.1
 
 [libraries]
 macos.debug             = "bin/libtbloader.macos.template_debug.framework"

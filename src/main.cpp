@@ -19,10 +19,10 @@ void unregister_tbloader_types(ModuleInitializationLevel p_level) {
 
 extern "C" {
 GDExtensionBool GDE_EXPORT tbloader_init(
-		const GDExtensionInterface *p_interface,
+		GDExtensionInterfaceGetProcAddress p_procaddr,
 		GDExtensionClassLibraryPtr p_library,
 		GDExtensionInitialization *r_initialization) {
-	GDExtensionBinding::InitObject init_obj(p_interface, p_library, r_initialization);
+	GDExtensionBinding::InitObject init_obj(p_procaddr, p_library, r_initialization);
 
 	init_obj.register_initializer(register_tbloader_types);
 	init_obj.register_terminator(unregister_tbloader_types);
